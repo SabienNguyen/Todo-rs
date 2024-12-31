@@ -1,5 +1,5 @@
 # Todo-rs
- [WIP] A fast, easy-to-use, self-organizing to-do list built in Rust.
+ [WIP] A fast, easy-to-use, self-organizing to-do list built in Rust. Can currently do all basic features
  
  ## Basic features
  - Add tasks
