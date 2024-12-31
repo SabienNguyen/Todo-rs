@@ -18,14 +18,20 @@ pub fn add_task(list: &mut Vec<Task>, new_task: String) {
 }
 
 fn organize_tasks(list: &mut Vec<Task>) {
-    let _ = list.iter_mut()
-    .enumerate()
-    .map(|(i, task)| task.position = (i + 1) as u8)
-    .collect::<Vec<_>>();
+    let _ = list
+        .iter_mut()
+        .enumerate()
+        .map(|(i, task)| task.position = (i + 1) as u8)
+        .collect::<Vec<_>>();
 }
 
 pub fn delete_task(list: &mut Vec<Task>, position: u8) {
     list.remove((position - 1) as usize);
+    organize_tasks(list);
+}
+
+pub fn complete_task(list: &mut Vec<Task>) {
+    list.remove(0);
     organize_tasks(list);
 }
 
@@ -99,6 +105,39 @@ mod tests {
             vec![
                 Task {
                     name: String::from("workout"),
+                    position: 1,
+                },
+                Task {
+                    name: String::from("poop"),
+                    position: 2,
+                },
+            ]
+        )
+    }
+
+    #[test]
+    fn test_complete_task() {
+        let mut tasks: Vec<Task> = vec![
+            Task {
+                name: String::from("workout"),
+                position: 1,
+            },
+            Task {
+                name: String::from("code"),
+                position: 2,
+            },
+            Task {
+                name: String::from("poop"),
+                position: 3,
+            },
+        ];
+
+        complete_task(&mut tasks);
+        assert_eq!(
+            tasks,
+            vec![
+                Task {
+                    name: String::from("code"),
                     position: 1,
                 },
                 Task {

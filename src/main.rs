@@ -1,5 +1,5 @@
 use std::io::stdin;
-use todo_list::{self, delete_task, format_list, Task};
+use todo_list::{self, complete_task, delete_task, format_list, Task};
 fn main() {
     println!("Welcome to Sabien's Todo-List!");
     handle_user();
@@ -31,19 +31,15 @@ fn handle_user() {
                 println!("Enter task position: ");
                 let mut string = String::new();
 
-                stdin()
-                    .read_line(&mut string)
-                    .expect("Failed to read line");
-                let task_pos: u8 = string.trim()
-                    .parse()
-                    .expect("enter a valid number");
+                stdin().read_line(&mut string).expect("Failed to read line");
+                let task_pos: u8 = string.trim().parse().expect("enter a valid number");
                 delete_task(&mut task_list, task_pos);
             }
-            "display" => println!("{}", format_list(&task_list)),
-            "quit" => {
-                println!("called quit command");
-                break;
+            "complete" => {
+                complete_task(&mut task_list);
             }
+            "display" => println!("{}", format_list(&task_list)),
+            "quit" => break,
             _ => println!("use valid command!"),
         }
     }
