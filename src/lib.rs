@@ -17,6 +17,18 @@ pub fn add_task(list: &mut Vec<Task>, new_task: String) {
     });
 }
 
+fn organize_tasks(list: &mut Vec<Task>) {
+    let _ = list.iter_mut()
+    .enumerate()
+    .map(|(i, task)| task.position = (i + 1) as u8)
+    .collect::<Vec<_>>();
+}
+
+pub fn delete_task(list: &mut Vec<Task>, position: u8) {
+    list.remove((position - 1) as usize);
+    organize_tasks(list);
+}
+
 pub fn format_list(list: &Vec<Task>) -> String {
     list.iter()
         .map(|item| format!("{}. {}", item.position, item.name))
@@ -61,5 +73,39 @@ mod tests {
             ("1. workout\n2. code\n3. poop").to_string(),
             format_list(&tasks)
         );
+    }
+
+    #[test]
+    fn test_delete_task() {
+        let mut tasks: Vec<Task> = vec![
+            Task {
+                name: String::from("workout"),
+                position: 1,
+            },
+            Task {
+                name: String::from("code"),
+                position: 2,
+            },
+            Task {
+                name: String::from("poop"),
+                position: 3,
+            },
+        ];
+
+        delete_task(&mut tasks, 2);
+
+        assert_eq!(
+            tasks,
+            vec![
+                Task {
+                    name: String::from("workout"),
+                    position: 1,
+                },
+                Task {
+                    name: String::from("poop"),
+                    position: 2,
+                },
+            ]
+        )
     }
 }
