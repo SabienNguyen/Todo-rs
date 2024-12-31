@@ -1,15 +1,15 @@
 use std::io::stdin;
-use todo_list::{self, format_list};
+use todo_list::{self, format_list, Task};
 fn main() {
     println!("Welcome to Sabien's Todo-List!");
     handle_user();
 }
 
 fn handle_user() {
-    let mut task_list: Vec<String> = Vec::new();
+    let mut task_list: Vec<Task> = Vec::new();
     let mut input = String::new();
     loop {
-        println!("Enter a command: (add, delete, display, quit)");
+        println!("Enter a command: (add, delete, display, quit, complete)");
 
         input.clear();
 

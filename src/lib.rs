@@ -1,12 +1,26 @@
-pub fn add_task(list: &mut Vec<String>, new_task: String) {
-    list.push(new_task);
+#[derive(Debug)]
+pub struct Task {
+    name: String,
+    position: u8,
 }
 
-pub fn format_list(list: &Vec<String>) -> String {
+impl PartialEq for Task {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name && self.position == other.position
+    }
+}
+
+pub fn add_task(list: &mut Vec<Task>, new_task: String) {
+    list.push(Task {
+        name: new_task,
+        position: (list.len() + 1) as u8,
+    });
+}
+
+pub fn format_list(list: &Vec<Task>) -> String {
     list.iter()
-        .enumerate()
-        .map(|(i, item)| format!("{}. {}", i + 1, item))
-        .collect::<Vec<String>>()
+        .map(|item| format!("{}. {}", item.position, item.name))
+        .collect::<Vec<_>>()
         .join("\n")
 }
 
@@ -18,15 +32,30 @@ mod tests {
     fn test_add_task() {
         let mut tasks = Vec::new();
         add_task(&mut tasks, String::from("workout"));
-        assert_eq!(tasks, vec!["workout"]);
+        assert_eq!(
+            tasks,
+            vec![Task {
+                name: String::from("workout"),
+                position: 1
+            }]
+        );
     }
 
     #[test]
     fn test_display_list() {
-        let tasks: Vec<String> = vec![
-            String::from("workout"),
-            String::from("code"),
-            String::from("poop"),
+        let tasks: Vec<Task> = vec![
+            Task {
+                name: String::from("workout"),
+                position: 1,
+            },
+            Task {
+                name: String::from("code"),
+                position: 2,
+            },
+            Task {
+                name: String::from("poop"),
+                position: 3,
+            },
         ];
         assert_eq!(
             ("1. workout\n2. code\n3. poop").to_string(),
