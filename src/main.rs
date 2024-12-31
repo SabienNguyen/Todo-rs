@@ -1,6 +1,5 @@
-use core::task;
 use std::io::stdin;
-use todo_list;
+use todo_list::{self, format_list};
 fn main() {
     println!("Welcome to Sabien's Todo-List!");
     handle_user();
@@ -29,7 +28,7 @@ fn handle_user() {
                 todo_list::add_task(&mut task_list, task_name);
             }
             "delete" => println!("called delete command"),
-            "display" => println!("called display command"),
+            "display" => println!("{}", format_list(&task_list)),
             "quit" => {
                 println!("called quit command");
                 break;

@@ -2,10 +2,17 @@ pub fn add_task(list: &mut Vec<String>, new_task: String) {
     list.push(new_task);
 }
 
+pub fn format_list(list: &Vec<String>) -> String {
+    list.iter()
+        .enumerate()
+        .map(|(i, item)| format!("{}. {}", i + 1, item))
+        .collect::<Vec<String>>()
+        .join("\n")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::{self, Write};
 
     #[test]
     fn test_add_task() {
@@ -14,22 +21,16 @@ mod tests {
         assert_eq!(tasks, vec!["workout"]);
     }
 
-    // #[test]
-    // fn test_display_list() {
-    //     let tasks = vec!["workout", "code", "poop"];
-    //     let mut output = Vec::new();
-    //     // Redirecting stdout to the buffer
-    //     let _ = io::set_boxed_writer(&mut output);
-
-    //     // Call the function
-    //     display_list(&tasks);
-
-    //     // Restore stdout
-    //     let _ = io::set_boxed_writer(Box::new(io::stdout()));
-
-    //     let output = String::from_utf8_lossy(&output);
-
-    //     // Check the output
-    //     assert!(output.contains(("workout\ncode\npoop").lines().map(|line| line.to_string()).collect()));
-    // }
+    #[test]
+    fn test_display_list() {
+        let tasks: Vec<String> = vec![
+            String::from("workout"),
+            String::from("code"),
+            String::from("poop"),
+        ];
+        assert_eq!(
+            ("1. workout\n2. code\n3. poop").to_string(),
+            format_list(&tasks)
+        );
+    }
 }
