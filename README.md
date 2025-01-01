@@ -11,6 +11,9 @@ I have used a few applications to create a to-do list. At the top of the complex
  
  ## Advanced features
  - Sort tasks based on 4 quadrants of task categorization
+    - tasks to finish feature
+      - rewrite struct to contain a quadrant value
+      - implement sorting function   
  - keep memory of task list locally
 
 ## Final features
