@@ -14,10 +14,16 @@ I have used a few applications to create a to-do list. At the top of the complex
     - tasks to finish feature
       - rewrite struct to contain a quadrant value
       - implement sorting function   
+      - develop personal hierarchy on event order
  - keep memory of task list locally
+    - I think this is possible by just saving list to text file then reading and writing to it
 
 ## Final features
   - clean ui
+    - use external crate perhaps
   - commands simple
+    - this includes making commands more intuitive for example doing add [task name]
   - optimize/refactor code
+    - try to rewrite in idomatic rust code where I can
   - use list anywhere and save in cloud or in some way communicate task file across devices
+
