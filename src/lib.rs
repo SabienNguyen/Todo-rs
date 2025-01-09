@@ -2,20 +2,22 @@
 pub struct Task {
     name: String,
     position: u8,
-    category: u8,
+    quadrant: u8,
 }
 
 impl PartialEq for Task {
     fn eq(&self, other: &Self) -> bool {
-        self.name == other.name && self.position == other.position
+        self.name == other.name
+            && self.position == other.position
+            && self.quadrant == other.quadrant
     }
 }
 
-pub fn add_task(list: &mut Vec<Task>, new_task: String, category: u8) {
+pub fn add_task(list: &mut Vec<Task>, new_task: String, quadrant: u8) {
     list.push(Task {
         name: new_task,
         position: (list.len() + 1) as u8,
-        category: category as u8,
+        quadrant,
     });
 }
 
@@ -51,12 +53,13 @@ mod tests {
     #[test]
     fn test_add_task() {
         let mut tasks = Vec::new();
-        add_task(&mut tasks, String::from("workout"));
+        add_task(&mut tasks, String::from("workout"), 1);
         assert_eq!(
             tasks,
             vec![Task {
                 name: String::from("workout"),
-                position: 1
+                position: 1,
+                quadrant: 1,
             }]
         );
     }
@@ -67,14 +70,17 @@ mod tests {
             Task {
                 name: String::from("workout"),
                 position: 1,
+                quadrant: 1,
             },
             Task {
                 name: String::from("code"),
                 position: 2,
+                quadrant: 1,
             },
             Task {
                 name: String::from("poop"),
                 position: 3,
+                quadrant: 1,
             },
         ];
         assert_eq!(
@@ -89,14 +95,17 @@ mod tests {
             Task {
                 name: String::from("workout"),
                 position: 1,
+                quadrant: 1,
             },
             Task {
                 name: String::from("code"),
                 position: 2,
+                quadrant: 1,
             },
             Task {
                 name: String::from("poop"),
                 position: 3,
+                quadrant: 1,
             },
         ];
 
@@ -108,10 +117,12 @@ mod tests {
                 Task {
                     name: String::from("workout"),
                     position: 1,
+                    quadrant: 1,
                 },
                 Task {
                     name: String::from("poop"),
                     position: 2,
+                    quadrant: 1,
                 },
             ]
         )
@@ -123,14 +134,17 @@ mod tests {
             Task {
                 name: String::from("workout"),
                 position: 1,
+                quadrant: 1,
             },
             Task {
                 name: String::from("code"),
                 position: 2,
+                quadrant: 1,
             },
             Task {
                 name: String::from("poop"),
                 position: 3,
+                quadrant: 1,
             },
         ];
 
@@ -141,10 +155,12 @@ mod tests {
                 Task {
                     name: String::from("code"),
                     position: 1,
+                    quadrant: 1,
                 },
                 Task {
                     name: String::from("poop"),
                     position: 2,
+                    quadrant: 1,
                 },
             ]
         )
