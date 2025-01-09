@@ -13,13 +13,13 @@ I have used a few applications to create a to-do list. At the top of the complex
  - Sort tasks based on 4 quadrants of task categorization (below are reference images)
 - ![image](https://github.com/user-attachments/assets/600b0cb2-f20e-4847-9316-fd6af9f31dfd)
 - ![image](https://github.com/user-attachments/assets/52c3e7a6-939e-4ba1-92ec-35cae844afd0)
-
     - tasks to finish feature
       - rewrite struct to contain a quadrant value
-      - implement sorting function   
+      - implement sorting function
+        - start simple, sort in order of quadrant value 
       - develop personal hierarchy on event order
  - keep memory of task list locally
-    - I think this is possible by just saving list to text file then reading and writing to it
+    - I think this is possible by just saving list to text file then reading and writing to it use sqlx or sqlitex or whatever crate it is
 
 ## Final features
   - clean ui
@@ -28,5 +28,6 @@ I have used a few applications to create a to-do list. At the top of the complex
     - this includes making commands more intuitive for example doing add [task name]
   - optimize/refactor code
     - try to rewrite in idomatic rust code where I can
+    - rewrite errors
   - use list anywhere and save in cloud or in some way communicate task file across devices
 
