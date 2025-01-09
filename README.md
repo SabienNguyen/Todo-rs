@@ -10,7 +10,10 @@ I have used a few applications to create a to-do list. At the top of the complex
  - Display task list
  
  ## Advanced features
- - Sort tasks based on 4 quadrants of task categorization
+ - Sort tasks based on 4 quadrants of task categorization (below are reference images)
+- ![image](https://github.com/user-attachments/assets/600b0cb2-f20e-4847-9316-fd6af9f31dfd)
+- ![image](https://github.com/user-attachments/assets/52c3e7a6-939e-4ba1-92ec-35cae844afd0)
+
     - tasks to finish feature
       - rewrite struct to contain a quadrant value
       - implement sorting function   
