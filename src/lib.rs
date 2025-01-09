@@ -2,6 +2,7 @@
 pub struct Task {
     name: String,
     position: u8,
+    category: u8,
 }
 
 impl PartialEq for Task {
@@ -10,10 +11,11 @@ impl PartialEq for Task {
     }
 }
 
-pub fn add_task(list: &mut Vec<Task>, new_task: String) {
+pub fn add_task(list: &mut Vec<Task>, new_task: String, category: u8) {
     list.push(Task {
         name: new_task,
         position: (list.len() + 1) as u8,
+        category: category as u8,
     });
 }
 
