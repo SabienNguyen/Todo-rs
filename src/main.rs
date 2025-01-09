@@ -43,7 +43,11 @@ fn handle_user() {
                 delete_task(&mut task_list, task_pos);
             }
             "complete" => {
-                complete_task(&mut task_list);
+                if !task_list.is_empty() { 
+                    complete_task(&mut task_list);
+                }else {
+                    println!("list is empty");
+                }
             }
             "display" => println!("{}", format_list(&task_list)),
             "quit" => break,
