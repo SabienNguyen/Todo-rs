@@ -22,11 +22,8 @@ pub fn add_task(list: &mut Vec<Task>, new_task: String, quadrant: u8) {
 }
 
 fn organize_tasks(list: &mut Vec<Task>) {
-    let _ = list
-        .iter_mut()
-        .enumerate()
-        .map(|(i, task)| task.position = (i + 1) as u8)
-        .collect::<Vec<_>>();
+    list.sort_by_key(|task| task.quadrant);
+    list.iter_mut().enumerate().for_each(|(i, task)| task.position = (i + 1) as u8);
 }
 
 pub fn delete_task(list: &mut Vec<Task>, position: u8) {
@@ -73,18 +70,18 @@ mod tests {
                 quadrant: 1,
             },
             Task {
-                name: String::from("code"),
+                name: String::from("poop"),
                 position: 2,
-                quadrant: 1,
+                quadrant: 2,
             },
             Task {
-                name: String::from("poop"),
+                name: String::from("code"),
                 position: 3,
-                quadrant: 1,
+                quadrant: 3,
             },
         ];
         assert_eq!(
-            ("1. workout\n2. code\n3. poop").to_string(),
+            ("1. workout\n2. poop\n3. code").to_string(),
             format_list(&tasks)
         );
     }
@@ -98,14 +95,14 @@ mod tests {
                 quadrant: 1,
             },
             Task {
-                name: String::from("code"),
+                name: String::from("poop"),
                 position: 2,
-                quadrant: 1,
+                quadrant: 2,
             },
             Task {
-                name: String::from("poop"),
+                name: String::from("code"),
                 position: 3,
-                quadrant: 1,
+                quadrant: 3,
             },
         ];
 
@@ -120,9 +117,9 @@ mod tests {
                     quadrant: 1,
                 },
                 Task {
-                    name: String::from("poop"),
+                    name: String::from("code"),
                     position: 2,
-                    quadrant: 1,
+                    quadrant: 3,
                 },
             ]
         )
@@ -137,14 +134,14 @@ mod tests {
                 quadrant: 1,
             },
             Task {
-                name: String::from("code"),
+                name: String::from("poop"),
                 position: 2,
-                quadrant: 1,
+                quadrant: 2,
             },
             Task {
-                name: String::from("poop"),
+                name: String::from("code"),
                 position: 3,
-                quadrant: 1,
+                quadrant: 3,
             },
         ];
 
@@ -153,14 +150,14 @@ mod tests {
             tasks,
             vec![
                 Task {
-                    name: String::from("code"),
+                    name: String::from("poop"),
                     position: 1,
-                    quadrant: 1,
+                    quadrant: 2,
                 },
                 Task {
-                    name: String::from("poop"),
+                    name: String::from("code"),
                     position: 2,
-                    quadrant: 1,
+                    quadrant: 3,
                 },
             ]
         )
