@@ -25,7 +25,14 @@ fn handle_user() {
                 stdin()
                     .read_line(&mut task_name)
                     .expect("Failed to read line");
-                todo_list::add_task(&mut task_list, task_name);
+
+                println!("Enter quadrant: ");
+                let mut quadrant = String::new();
+                stdin()
+                    .read_line(&mut quadrant)
+                    .expect("Failed to read line");
+                let quadrant: u8 = quadrant.trim().parse().expect("enter a valid number");
+                todo_list::add_task(&mut task_list, task_name, quadrant);
             }
             "delete" => {
                 println!("Enter task position: ");
