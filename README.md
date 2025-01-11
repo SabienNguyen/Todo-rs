@@ -1,5 +1,5 @@
 # Todo-rs
- [WIP] A fast, easy-to-use, self-organizing to-do list built in Rust. Can currently do all basic features
+ [WIP] A fast, easy-to-use, self-organizing to-do list built in Rust. Can currently do basic and advanced features. 
 
  ## My desire for this todo list:
 I have used a few applications to create a to-do list. At the top of the complexity spectrum is Notion, which for me ended up being too much. Then I went to the bottom of the complexity spectrum, which is just building a to-do list out of a notes app. That was simple to start but just ended up not having enough capabilities for it to be useful. Over the years, the best to-do list I used was Todoist. Todoist is built to implement any type of task organization philosophy. Taking inspiration from that design, I want to build an easy-to-use to-do list that implements an organization philosophy that I commonly use. Hopefully, this to-do list can become the main tool that I use!
@@ -19,7 +19,7 @@ I have used a few applications to create a to-do list. At the top of the complex
         - start simple, sort in order of quadrant value 
       - develop personal hierarchy on event order
  - keep memory of task list locally
-    - I think this is possible by just saving list to text file then reading and writing to it use sqlx or sqlitex or whatever crate it is
+    - I did this by saving the list as a json, to keep the list private it is included in the gitignore
 
 ## Final features
   - clean ui
