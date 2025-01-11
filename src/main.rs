@@ -1,12 +1,12 @@
 use std::io::stdin;
-use todo_list::{self, complete_task, delete_task, format_list, Task};
+use todo_list::{self, complete_task, delete_task, format_list, save_task_list, Task};
 fn main() {
     println!("Welcome to Sabien's Todo-List!");
     handle_user();
 }
 
 fn handle_user() {
-    let mut task_list: Vec<Task> = Vec::new();
+    let mut task_list: Vec<Task> = todo_list::load_task_list().unwrap_or_else(|_| Vec::new());
     let mut input = String::new();
     loop {
         println!("Enter a command: (add, delete, display, quit, complete)");
@@ -43,9 +43,9 @@ fn handle_user() {
                 delete_task(&mut task_list, task_pos);
             }
             "complete" => {
-                if !task_list.is_empty() { 
+                if !task_list.is_empty() {
                     complete_task(&mut task_list);
-                }else {
+                } else {
                     println!("list is empty");
                 }
             }
@@ -54,6 +54,6 @@ fn handle_user() {
             _ => println!("use valid command!"),
         }
     }
-
+    save_task_list(&task_list).unwrap();
     println!("Bye!");
 }

@@ -1,4 +1,10 @@
-#[derive(Debug)]
+use serde::{Deserialize, Serialize};
+use serde_json;
+use std::fs::File;
+use std::io::{self, Read};
+use std::path::Path;
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Task {
     name: String,
     position: u8,
@@ -23,7 +29,9 @@ pub fn add_task(list: &mut Vec<Task>, new_task: String, quadrant: u8) {
 
 fn organize_tasks(list: &mut Vec<Task>) {
     list.sort_by_key(|task| task.quadrant);
-    list.iter_mut().enumerate().for_each(|(i, task)| task.position = (i + 1) as u8);
+    list.iter_mut()
+        .enumerate()
+        .for_each(|(i, task)| task.position = (i + 1) as u8);
 }
 
 pub fn delete_task(list: &mut Vec<Task>, position: u8) {
@@ -41,6 +49,27 @@ pub fn format_list(list: &Vec<Task>) -> String {
         .map(|item| format!("{}. {}", item.position, item.name))
         .collect::<Vec<_>>()
         .join("\n")
+}
+
+pub fn save_task_list(list: &Vec<Task>) -> io::Result<()> {
+    let file = File::create("todo_list.json")?;
+    serde_json::to_writer(file, &list)?;
+    Ok(())
+}
+
+pub fn load_task_list() -> io::Result<Vec<Task>> {
+    let path = Path::new("todo_list.json");
+    if path.exists() {
+        let mut file = File::open(path)?;
+        let mut content = String::new();
+        file.read_to_string(&mut content)?;
+
+        let task_list: Vec<Task> = serde_json::from_str(&content)?;
+
+        Ok(task_list)
+    } else {
+        Ok(Vec::new())
+    }
 }
 
 #[cfg(test)]
