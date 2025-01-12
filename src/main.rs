@@ -1,59 +1,66 @@
-use std::io::stdin;
-use todo_list::{self, complete_task, delete_task, format_list, save_task_list, Task};
+use dioxus::prelude::*;
+use todo_list;
+static CSS: Asset = asset!("/assets/main.css");
+
 fn main() {
-    println!("Welcome to Sabien's Todo-List!");
-    handle_user();
+    dioxus::launch(App);
 }
 
-fn handle_user() {
-    let mut task_list: Vec<Task> = todo_list::load_task_list().unwrap_or_else(|_| Vec::new());
-    let mut input = String::new();
-    loop {
-        println!("Enter a command: (add, delete, display, quit, complete)");
-
-        input.clear();
-
-        stdin().read_line(&mut input).expect("Failed to read line");
-
-        let command = input.trim();
-
-        match command {
-            "add" => {
-                println!("Enter task name: ");
-                let mut task_name = String::new();
-
-                stdin()
-                    .read_line(&mut task_name)
-                    .expect("Failed to read line");
-
-                println!("Enter quadrant: ");
-                let mut quadrant = String::new();
-                stdin()
-                    .read_line(&mut quadrant)
-                    .expect("Failed to read line");
-                let quadrant: u8 = quadrant.trim().parse().expect("enter a valid number");
-                todo_list::add_task(&mut task_list, task_name, quadrant);
-            }
-            "delete" => {
-                println!("Enter task position: ");
-                let mut string = String::new();
-
-                stdin().read_line(&mut string).expect("Failed to read line");
-                let task_pos: u8 = string.trim().parse().expect("enter a valid number");
-                delete_task(&mut task_list, task_pos);
-            }
-            "complete" => {
-                if !task_list.is_empty() {
-                    complete_task(&mut task_list);
-                } else {
-                    println!("list is empty");
-                }
-            }
-            "display" => println!("{}", format_list(&task_list)),
-            "quit" => break,
-            _ => println!("use valid command!"),
+#[component]
+fn App() -> Element {
+    rsx! {
+        document::Stylesheet { href: CSS }
+        div {
+            class: "container",
+            Sidebar {},
+            MainContent {},
         }
     }
-    save_task_list(&task_list).unwrap();
-    println!("Bye!");
+}
+
+#[component] 
+fn Sidebar() -> Element {
+    rsx! {
+        div {
+            class: "sidebar",
+            h2 {
+                "Your Profile"
+            },
+            ul {
+                li { "Add task" }, 
+                li { "Search" }, 
+                li { "Inbox" }, 
+                li { "Today" }, 
+                li { "Upcoming" }, 
+                li { "Filters & Labels" },        
+            },     
+            h3 {"Favorites"},
+            ul {  
+                li { "ASAP" },
+            },
+            h3 { "My Projects" },
+            ul { 
+                li { "Home" },
+                li { "Workflow" },
+                li { "Learning Machine Learning" },
+                li { "bookshelf" },
+             }
+        }
+    }
+}
+
+#[component] 
+fn MainContent() -> Element {
+    rsx! {
+        div {
+            class: "main-content",
+            h1 { "Today" },
+            button { "Add a new task" },
+            p { "What do you need to get done today?" },
+            a {
+                href: "#",
+                "How to plan your day."
+            }
+        }
+    }
 }
