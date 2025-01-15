@@ -24,6 +24,7 @@ I have used a few applications to create a to-do list. At the top of the complex
 ## Final features
   - clean ui
     - use external crate perhaps
+    - experiementing with various graphical crates
   - commands simple
     - this includes making commands more intuitive for example doing add [task name]
   - optimize/refactor code
