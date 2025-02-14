@@ -1,44 +1,35 @@
-import { useEffect, useState } from 'react';
-import { Task, fetchTasks, addTask, deleteTask, completeTask } from './services/api';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  useEffect(() => {
-    fetchTasks().then(setTasks).catch(console.error);
-  }, []);
-
-  const handleAddTask = async () => {
-    const newTask = { name: 'New Task', position: 0, quadrant: 1 };
-    const updatedTasks = await addTask(newTask);
-    setTasks(updatedTasks);
-  };
-
-  const handleDeleteTask = async (position: number) => {
-    const updatedTasks = await deleteTask(position);
-    setTasks(updatedTasks);
-  };
-
-  const handleCompleteTask = async () => {
-    const updatedTasks = await completeTask();
-    setTasks(updatedTasks);
-  };
+  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <h1>Task Manager</h1>
-      <button onClick={handleAddTask}>Add Task</button>
-      <button onClick={handleCompleteTask}>Complete Task</button>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.position}>
-            {task.name}
-            <button onClick={() => handleDeleteTask(task.position)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
 
-export default App;
+export default App
