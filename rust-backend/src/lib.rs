@@ -19,6 +19,15 @@ impl PartialEq for Task {
     }
 }
 
+impl Task {
+    pub fn get_name(&self) -> String {
+        self.name.clone()
+    }
+    pub fn get_quadrant(&self) -> u8 {
+        self.quadrant
+    }
+}
+
 pub fn add_task(list: &mut Vec<Task>, new_task: String, quadrant: u8) {
     list.push(Task {
         name: new_task,
